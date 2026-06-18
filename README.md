@@ -1,3 +1,6 @@
+I'm just forking this module for my own use. I'm leaving the original README info here, the original is Tyler's work and he deserves all the credit.
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
 # Commissioned Module Update
 
 This module was updated as part of a commission. Any further updates beyond new core compatibility is subject to a monetary contribution. Issues for new features will be assigned a value based on complexity.
