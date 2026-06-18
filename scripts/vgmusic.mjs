@@ -21,7 +21,7 @@ Hooks.once('init', async () => {
   game.vgmusic = { musicController: new MusicController(), VGMusicConfig: VGMusicConfig };
   registerSettings();
   registerKeybindings();
-  await loadTemplates(['modules/vgmusic/templates/music-config.hbs']);
+  await foundry.applications.handlebars.loadTemplates(['modules/vgmusic/templates/music-config.hbs']);
 });
 Hooks.once('ready', handleReady);
 Hooks.on('getSceneControlButtons', getSceneControlButtons);

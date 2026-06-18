@@ -6,7 +6,7 @@ export const CONST = {
   settings: { silentCombatMusicMode: 'silentCombatMusicMode', defaultMusic: 'defaultMusic', suppressArea: 'suppressArea', suppressCombat: 'suppressCombat', fadeDuration: 'fadeDuration' },
   silentModes: { highestPriority: 'highestPriority', lastActor: 'lastActor', area: 'area', generic: 'generic' },
   playlistSections: {
-    DefaultMusic: { combat: { label: 'VGMusic.PlaylistSection.Combat', priority: -5 } },
+    DefaultMusic: { combat: { label: 'VGMusic.PlaylistSection.Combat', priority: -15 } },
     Scene: { area: { label: 'VGMusic.PlaylistSection.Area', priority: -20 }, combat: { label: 'VGMusic.PlaylistSection.Combat', priority: -10 } },
     Actor: { combat: { label: 'VGMusic.PlaylistSection.Combat', priority: 0 } },
     Token: { combat: { label: 'VGMusic.PlaylistSection.Combat', priority: 5 } }

@@ -94,7 +94,7 @@ export function registerKeybindings() {
 async function toggleAreaMusic() {
   const current = game.settings.get(CONST.moduleId, CONST.settings.suppressArea);
   await game.settings.set(CONST.moduleId, CONST.settings.suppressArea, !current);
-  ui.controls.initialize();
+  ui.controls.render();
 }
 
 /**
@@ -103,5 +103,5 @@ async function toggleAreaMusic() {
 async function toggleCombatMusic() {
   const current = game.settings.get(CONST.moduleId, CONST.settings.suppressCombat);
   await game.settings.set(CONST.moduleId, CONST.settings.suppressCombat, !current);
-  ui.controls.initialize();
+  ui.controls.render();
 }
