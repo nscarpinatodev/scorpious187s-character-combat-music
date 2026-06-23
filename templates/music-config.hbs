@@ -1,4 +1,4 @@
-<div class="flexcol standard-form vgmusic-config">
+<div class="flexcol standard-form ccm-config">
   <input type="hidden" name="documentType" value="{{documentType}}">
   {{#each playlistConfig as |section|}}
     <fieldset>
@@ -6,7 +6,7 @@
       <div class="standard-form playlist-section" data-section="{{section.id}}" data-item-id="{{section.playlist.id}}">
         {{#if section.playlist}}
           <div class="form-group">
-            <label>{{localize "VGMusic.PlaylistSection.Combat"}}</label>
+            <label>{{localize "CCM.PlaylistSection.Combat"}}</label>
             <div class="form-fields playlist-info">
               <i class="fas fa-music"></i>
               <span class="playlist-name">{{section.playlist.name}}</span>
@@ -19,16 +19,16 @@
             </div>
           </div>
           <div class="form-group">
-            <label>{{localize "VGMusic.InitialTrack"}}</label>
+            <label>{{localize "CCM.InitialTrack"}}</label>
             <div class="form-fields">
               <select name="music.{{section.id}}.initialTrack">
-                {{{selectOptions section.tracks selected=section.data.initialTrack blank=(localize "VGMusic.Default")}}}
+                {{{selectOptions section.tracks selected=section.data.initialTrack blank=(localize "CCM.Default")}}}
               </select>
             </div>
           </div>
           {{#if section.allowPriority}}
             <div class="form-group">
-              <label>{{localize "VGMusic.Priority"}}</label>
+              <label>{{localize "CCM.Priority"}}</label>
               <div class="form-fields">
                 <input type="number" name="music.{{section.id}}.priority" value="{{section.data.priority}}"
                   placeholder="0">
@@ -38,7 +38,7 @@
         {{else}}
           <div class="form-group">
             <div class="form-fields">
-              <p class="hint">{{localize "VGMusic.ConfigHelp"}}</p>
+              <p class="hint">{{localize "CCM.ConfigHelp"}}</p>
             </div>
           </div>
         {{/if}}

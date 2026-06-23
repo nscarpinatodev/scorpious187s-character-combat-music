@@ -7,23 +7,23 @@ const { DragDrop } = foundry.applications.ux;
 /**
  * Music configuration application
  */
-export class VGMusicConfig extends HandlebarsApplicationMixin(ApplicationV2) {
+export class CharacterCombatMusicConfig extends HandlebarsApplicationMixin(ApplicationV2) {
   static DEFAULT_OPTIONS = {
-    id: 'vgmusic-config',
+    id: 'ccm-config',
     tag: 'form',
-    window: { title: 'VGMusic.ConfigTitle', icon: 'fas fa-music', resizable: true, minimizable: true },
+    window: { title: 'CCM.ConfigTitle', icon: 'fas fa-music', resizable: true, minimizable: true },
     modal: true,
     classes: ['dnd5e2'],
     form: {
-      handler: VGMusicConfig.formHandler,
+      handler: CharacterCombatMusicConfig.formHandler,
       closeOnSubmit: false,
       submitOnChange: false
     },
     position: { width: 'auto', height: 'auto' },
     actions: {
-      reset: VGMusicConfig.handleReset,
-      openPlaylist: VGMusicConfig.openPlaylist,
-      deletePlaylist: VGMusicConfig.deletePlaylist
+      reset: CharacterCombatMusicConfig.handleReset,
+      openPlaylist: CharacterCombatMusicConfig.openPlaylist,
+      deletePlaylist: CharacterCombatMusicConfig.deletePlaylist
     },
     dragDrop: [
       { dragSelector: '.playlist-section-item[data-reorderable="true"]', dropSelector: '.playlist-section-list', permissions: { dragstart: true, drop: true }, callbacks: {} },
@@ -32,7 +32,7 @@ export class VGMusicConfig extends HandlebarsApplicationMixin(ApplicationV2) {
   };
 
   /** @override */
-  static PARTS = { form: { template: 'modules/vgmusic/templates/music-config.hbs' } };
+  static PARTS = { form: { template: 'modules/scorpious187s-character-combat-music/templates/music-config.hbs' } };
 
   config = [];
 
@@ -51,8 +51,8 @@ export class VGMusicConfig extends HandlebarsApplicationMixin(ApplicationV2) {
    * @returns {string} The prefix path for flag updates
    */
   get updateDataPrefix() {
-    if (this.isDocument || this.document.constructor.name === 'PrototypeToken') return 'flags.vgmusic';
-    return 'data.vgmusic';
+    if (this.isDocument || this.document.constructor.name === 'PrototypeToken') return 'flags.scorpious187s-character-combat-music';
+    return 'data.scorpious187s-character-combat-music';
   }
 
   /**
@@ -82,7 +82,7 @@ export class VGMusicConfig extends HandlebarsApplicationMixin(ApplicationV2) {
       const docType = this.documentTypeName;
       const sections = CONST.playlistSections[docType];
       if (!sections) {
-        console.error('VGMusic | No sections found for document type:', docType);
+        console.error('CCM | No sections found for document type:', docType);
         this.config = [];
         return;
       }
@@ -111,7 +111,7 @@ export class VGMusicConfig extends HandlebarsApplicationMixin(ApplicationV2) {
       });
       this.config.sort((a, b) => a.order - b.order);
     } catch (error) {
-      console.error('VGMusic | Error initializing configuration:', error);
+      console.error('CCM | Error initializing configuration:', error);
       this.config = [];
     }
   }
@@ -121,8 +121,8 @@ export class VGMusicConfig extends HandlebarsApplicationMixin(ApplicationV2) {
     this.initializeConfig();
     const playlistConfig = this.config.map((section, index) => ({ ...section, index, labelLocalized: game.i18n.localize(section.label) }));
     const buttons = [
-      { type: 'submit', icon: 'fas fa-save', label: 'VGMusic.UI.Save' },
-      { type: 'button', action: 'reset', icon: 'fas fa-undo', label: 'VGMusic.UI.Reset' }
+      { type: 'submit', icon: 'fas fa-save', label: 'CCM.UI.Save' },
+      { type: 'button', action: 'reset', icon: 'fas fa-undo', label: 'CCM.UI.Reset' }
     ];
     return { playlistConfig, buttons, documentType: this.documentTypeName };
   }
@@ -178,7 +178,7 @@ export class VGMusicConfig extends HandlebarsApplicationMixin(ApplicationV2) {
     try {
       const li = event.currentTarget.closest('li');
       if (!li || li.classList.contains('not-sortable')) {
-        console.error('VGMusic | Drag start blocked - not sortable');
+        console.error('CCM | Drag start blocked - not sortable');
         return false;
       }
       this._formState = this._captureFormState();
@@ -188,7 +188,7 @@ export class VGMusicConfig extends HandlebarsApplicationMixin(ApplicationV2) {
       li.classList.add('dragging');
       return true;
     } catch (error) {
-      console.error('VGMusic | Error starting drag:', error);
+      console.error('CCM | Error starting drag:', error);
       return false;
     }
   }
@@ -201,7 +201,7 @@ export class VGMusicConfig extends HandlebarsApplicationMixin(ApplicationV2) {
     event.preventDefault();
     const list = this.element.querySelector('.playlist-section-list');
     if (!list) {
-      console.warn('VGMusic | No playlist section list found');
+      console.warn('CCM | No playlist section list found');
       return;
     }
     const draggingItem = list.querySelector('.dragging');
@@ -243,7 +243,7 @@ export class VGMusicConfig extends HandlebarsApplicationMixin(ApplicationV2) {
         }, null)?.element || null
       );
     } catch (error) {
-      console.error('VGMusic | Error finding drag target:', error);
+      console.error('CCM | Error finding drag target:', error);
       return null;
     }
   }
@@ -279,7 +279,7 @@ export class VGMusicConfig extends HandlebarsApplicationMixin(ApplicationV2) {
       this.render(false);
       return true;
     } catch (error) {
-      console.error('VGMusic | Error handling reorder drop:', error);
+      console.error('CCM | Error handling reorder drop:', error);
       return false;
     } finally {
       this.cleanupDragElements();
@@ -302,7 +302,7 @@ export class VGMusicConfig extends HandlebarsApplicationMixin(ApplicationV2) {
       try {
         data = JSON.parse(dataString);
       } catch (e) {
-        console.error('VGMusic | Failed to parse drag data:', e);
+        console.error('CCM | Failed to parse drag data:', e);
         return false;
       }
       if (data.type === 'playlist-config-reorder') return false;
@@ -403,7 +403,7 @@ export class VGMusicConfig extends HandlebarsApplicationMixin(ApplicationV2) {
       const actor = this.document.parent;
       if (!actor) return;
       const prototypeData = Object.entries(data).reduce((acc, [key, value]) => {
-        acc[`prototypeToken.flags.vgmusic.${key}`] = value;
+        acc[`prototypeToken.flags.scorpious187s-character-combat-music.${key}`] = value;
         return acc;
       }, {});
       const result = await actor.update(prototypeData);
@@ -468,10 +468,10 @@ export class VGMusicConfig extends HandlebarsApplicationMixin(ApplicationV2) {
     if (Object.keys(updateData).length > 0) {
       try {
         await this.updateObject(updateData);
-        game.vgmusic?.musicController?.playCurrentTrack();
+        game.characterCombatMusic?.musicController?.playCurrentTrack();
         this.close();
       } catch (error) {
-        console.error('VGMusic | Error updating data:', error);
+        console.error('CCM | Error updating data:', error);
         ui.notifications.error('Failed to save music configuration');
         return false;
       }
@@ -492,7 +492,7 @@ export function getSceneControlButtons(controls) {
       controls.sounds.tools['suppress-area-music'] = {
         name: 'suppress-area-music',
         order: 10,
-        title: 'VGMusic.Controls.SuppressAreaMusic',
+        title: 'CCM.Controls.SuppressAreaMusic',
         icon: 'fas fa-dungeon',
         toggle: true,
         visible: true,
@@ -504,7 +504,7 @@ export function getSceneControlButtons(controls) {
       controls.sounds.tools['suppress-combat-music'] = {
         name: 'suppress-combat-music',
         order: 11,
-        title: 'VGMusic.Controls.SuppressCombatMusic',
+        title: 'CCM.Controls.SuppressCombatMusic',
         icon: 'fas fa-fist-raised',
         toggle: true,
         visible: true,
@@ -515,7 +515,7 @@ export function getSceneControlButtons(controls) {
       };
     }
   } catch (error) {
-    console.error('VGMusic | Error adding scene control buttons:', error);
+    console.error('CCM | Error adding scene control buttons:', error);
   }
 }
 
@@ -533,16 +533,16 @@ export function handleSceneConfigRender(app, html) {
     const newFormGroup = document.createElement('div');
     newFormGroup.className = 'form-group';
     const label = document.createElement('label');
-    label.textContent = game.i18n.localize('VGMusic.CombatMusic');
+    label.textContent = game.i18n.localize('CCM.CombatMusic');
     const formFields = document.createElement('div');
     formFields.className = 'form-fields';
     const button = document.createElement('button');
     button.type = 'button';
-    button.dataset.action = 'vgmusic-scene';
-    button.innerHTML = `<i class="fas fa-music"></i> ${game.i18n.localize('VGMusic.ConfigTitle')}`;
+    button.dataset.action = 'ccm-scene';
+    button.innerHTML = `<i class="fas fa-music"></i> ${game.i18n.localize('CCM.ConfigTitle')}`;
     const hint = document.createElement('p');
     hint.className = 'hint';
-    hint.textContent = game.i18n.localize('VGMusic.Settings.DefaultMusic.Hint');
+    hint.textContent = game.i18n.localize('CCM.Settings.DefaultMusic.Hint');
     formFields.appendChild(button);
     newFormGroup.appendChild(label);
     newFormGroup.appendChild(formFields);
@@ -550,10 +550,10 @@ export function handleSceneConfigRender(app, html) {
     existingFormGroup.insertAdjacentElement('afterend', newFormGroup);
     button.addEventListener('click', (event) => {
       event.preventDefault();
-      new VGMusicConfig(app.document).render(true);
+      new CharacterCombatMusicConfig(app.document).render(true);
     });
   } catch (error) {
-    console.error('VGMusic | Error adding scene config button:', error);
+    console.error('CCM | Error adding scene config button:', error);
   }
 }
 
@@ -563,14 +563,14 @@ export function handleSceneConfigRender(app, html) {
  * @param {object} updateData - The update data
  */
 export function handleUpdateCombat(combat, updateData) {
-  if (combat.started && (updateData.turn != null || updateData.round != null)) game.vgmusic?.musicController?.playCurrentTrack();
+  if (combat.started && (updateData.turn != null || updateData.round != null)) game.characterCombatMusic?.musicController?.playCurrentTrack();
 }
 
 /**
  * Handle combat deletion to stop music
  */
 export function handleDeleteCombat() {
-  game.vgmusic?.musicController?.playCurrentTrack();
+  game.characterCombatMusic?.musicController?.playCurrentTrack();
 }
 
 /**
@@ -578,7 +578,7 @@ export function handleDeleteCombat() {
  * @param {object} combatant - The created combatant
  */
 export function handleCreateCombatant(combatant) {
-  if (combatant.parent?.started) game.vgmusic?.musicController?.playCurrentTrack();
+  if (combatant.parent?.started) game.characterCombatMusic?.musicController?.playCurrentTrack();
 }
 
 /**
@@ -586,14 +586,14 @@ export function handleCreateCombatant(combatant) {
  * @param {object} combatant - The deleted combatant
  */
 export function handleDeleteCombatant(combatant) {
-  if (combatant.parent?.started) game.vgmusic?.musicController?.playCurrentTrack();
+  if (combatant.parent?.started) game.characterCombatMusic?.musicController?.playCurrentTrack();
 }
 
 /**
  * Handle canvas ready to start music
  */
 export function handleCanvasReady() {
-  game.vgmusic?.musicController?.playCurrentTrack();
+  game.characterCombatMusic?.musicController?.playCurrentTrack();
 }
 
 /**
@@ -602,10 +602,10 @@ export function handleCanvasReady() {
  * @param {object} updateData - The update data
  */
 export function handleUpdateScene(scene, updateData) {
-  if ('flags' in updateData && updateData.flags?.[CONST.moduleId]) game.vgmusic?.musicController?.playCurrentTrack();
+  if ('flags' in updateData && updateData.flags?.[CONST.moduleId]) game.characterCombatMusic?.musicController?.playCurrentTrack();
   if ('active' in updateData) {
     if (updateData.active !== true) scene.unsetFlag(CONST.moduleId, 'playlist').catch(() => {});
-    game.vgmusic?.musicController?.playCurrentTrack();
+    game.characterCombatMusic?.musicController?.playCurrentTrack();
   }
 }
 
@@ -615,7 +615,7 @@ export function handleUpdateScene(scene, updateData) {
  * @param {object} updateData - The update data
  */
 export function handleUpdateActor(_actor, updateData) {
-  if ('flags' in updateData && updateData.flags?.[CONST.moduleId]) game.vgmusic?.musicController?.playCurrentTrack();
+  if ('flags' in updateData && updateData.flags?.[CONST.moduleId]) game.characterCombatMusic?.musicController?.playCurrentTrack();
 }
 
 /**
@@ -624,7 +624,7 @@ export function handleUpdateActor(_actor, updateData) {
  * @param {object} updateData - The update data
  */
 export function handleUpdateToken(_token, updateData) {
-  if ('flags' in updateData && updateData.flags?.[CONST.moduleId]) game.vgmusic?.musicController?.playCurrentTrack();
+  if ('flags' in updateData && updateData.flags?.[CONST.moduleId]) game.characterCombatMusic?.musicController?.playCurrentTrack();
 }
 
 /**
@@ -647,16 +647,16 @@ export function handleTokenConfigRender(app, html, _context, _options) {
     const formGroup = document.createElement('div');
     formGroup.className = 'form-group';
     const label = document.createElement('label');
-    label.textContent = game.i18n.localize('VGMusic.CombatMusic');
+    label.textContent = game.i18n.localize('CCM.CombatMusic');
     const formFields = document.createElement('div');
     formFields.className = 'form-fields';
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = 'vgmusic-token-config';
-    button.innerHTML = `<i class="fas fa-music"></i> ${game.i18n.localize('VGMusic.ConfigTitle')}`;
+    button.className = 'ccm-token-config';
+    button.innerHTML = `<i class="fas fa-music"></i> ${game.i18n.localize('CCM.ConfigTitle')}`;
     button.addEventListener('click', (event) => {
       event.preventDefault();
-      new VGMusicConfig(token).render(true);
+      new CharacterCombatMusicConfig(token).render(true);
     });
     formFields.appendChild(button);
     formGroup.appendChild(label);
@@ -668,24 +668,24 @@ export function handleTokenConfigRender(app, html, _context, _options) {
       const checkboxGroup = document.createElement('div');
       checkboxGroup.className = 'form-group';
       const checkLabel = document.createElement('label');
-      checkLabel.textContent = game.i18n.localize('VGMusic.UseTokenMusic.Label');
+      checkLabel.textContent = game.i18n.localize('CCM.UseTokenMusic.Label');
       const checkFields = document.createElement('div');
       checkFields.className = 'form-fields';
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
-      checkbox.name = 'flags.vgmusic.useTokenMusic';
+      checkbox.name = 'flags.scorpious187s-character-combat-music.useTokenMusic';
       checkbox.checked = useTokenMusic;
       checkFields.appendChild(checkbox);
       checkboxGroup.appendChild(checkLabel);
       checkboxGroup.appendChild(checkFields);
       const hint = document.createElement('p');
       hint.className = 'hint';
-      hint.textContent = game.i18n.localize('VGMusic.UseTokenMusic.Hint');
+      hint.textContent = game.i18n.localize('CCM.UseTokenMusic.Hint');
       checkboxGroup.appendChild(hint);
       formGroup.insertAdjacentElement('afterend', checkboxGroup);
     }
   } catch (error) {
-    console.error('VGMusic | Error adding token config button:', error);
+    console.error('CCM | Error adding token config button:', error);
   }
 }
 
@@ -694,6 +694,6 @@ export function handleTokenConfigRender(app, html, _context, _options) {
  */
 export async function handleReady() {
   setTimeout(() => {
-    game.vgmusic?.musicController?.playCurrentTrack();
+    game.characterCombatMusic?.musicController?.playCurrentTrack();
   }, 1000);
 }

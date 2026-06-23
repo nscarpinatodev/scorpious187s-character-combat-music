@@ -99,7 +99,7 @@ export class PlaylistContext {
       return new this(type, document, playlist, trackId, priority, scopeEntity);
     }
     if (document.documentName === 'DefaultMusic') {
-      const section = document.data?.vgmusic?.music?.[type];
+      const section = document.data?.[CONST.moduleId]?.music?.[type];
       if (!section) return null;
       const playlistId = section.playlist;
       const playlist = playlistId ? game.playlists.get(playlistId) : null;
@@ -130,7 +130,7 @@ export class FadingTrack {
    * Remove this fading track from the controller
    */
   delete() {
-    const controller = game.vgmusic?.musicController;
+    const controller = game.characterCombatMusic?.musicController;
     if (!controller) return;
     const index = controller.fadingTracks.indexOf(this);
     if (index >= 0) {

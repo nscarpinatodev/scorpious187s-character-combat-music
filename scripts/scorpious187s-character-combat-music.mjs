@@ -13,15 +13,15 @@ import {
   handleUpdateCombat,
   handleUpdateScene,
   handleUpdateToken,
-  VGMusicConfig
+  CharacterCombatMusicConfig
 } from './app.mjs';
 
 Hooks.once('init', async () => {
-  console.log('VGMusic | Initializing Video Game Music module');
-  game.vgmusic = { musicController: new MusicController(), VGMusicConfig: VGMusicConfig };
+  console.log('CCM | Initializing Character Combat Music module');
+  game.characterCombatMusic = { musicController: new MusicController(), CharacterCombatMusicConfig: CharacterCombatMusicConfig };
   registerSettings();
   registerKeybindings();
-  await foundry.applications.handlebars.loadTemplates(['modules/vgmusic/templates/music-config.hbs']);
+  await foundry.applications.handlebars.loadTemplates(['modules/scorpious187s-character-combat-music/templates/music-config.hbs']);
 });
 Hooks.once('ready', handleReady);
 Hooks.on('getSceneControlButtons', getSceneControlButtons);

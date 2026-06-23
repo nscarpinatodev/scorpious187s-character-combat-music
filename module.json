@@ -1,6 +1,9 @@
 {
   "authors": [
     {
+      "name": "Scorpious187"
+    },
+    {
       "name": "Furyspark"
     },
     {
@@ -9,8 +12,8 @@
       "url": "https://github.com/Sayshal"
     }
   ],
-  "bugs": "https://github.com/Sayshal/vgmusic/issues",
-  "changelog": "https://github.com/Sayshal/vgmusic/releases",
+  "bugs": "https://github.com/nscarpinatodev/scorpious187s-character-combat-music/issues",
+  "changelog": "https://github.com/nscarpinatodev/scorpious187s-character-combat-music/releases",
   "compatibility": {
     "maximum": "14",
     "minimum": "13",
@@ -19,10 +22,10 @@
   "description": "Your scene's music switches to combat tracks when a fight starts and back to exploration music when it ends, just like a video game! Assign playlists per scene or give individual tokens their own battle themes, and any track that gets cut off resumes where it left off instead of restarting.",
   "download": "",
   "esmodules": [
-    "scripts/vgmusic.mjs"
+    "scripts/scorpious187s-character-combat-music.mjs"
   ],
   "flags": {},
-  "id": "vgmusic",
+  "id": "scorpious187s-character-combat-music",
   "languages": [
     {
       "lang": "en",
@@ -35,10 +38,10 @@
       "path": "lang/pt-BR.json"
     }
   ],
-  "license": "https://github.com/Sayshal/vgmusic?tab=License-1-ov-file",
-  "manifest": "https://github.com/Sayshal/vgmusic/releases/latest/download/module.json",
-  "readme": "https://github.com/Sayshal/vgmusic?tab=readme-ov-file",
-  "title": "Video Game Music",
-  "url": "https://github.com/Sayshal/vgmusic",
+  "license": "https://github.com/nscarpinatodev/scorpious187s-character-combat-music?tab=License-1-ov-file",
+  "manifest": "https://github.com/nscarpinatodev/scorpious187s-character-combat-music/releases/latest/download/module.json",
+  "readme": "https://github.com/nscarpinatodev/scorpious187s-character-combat-music?tab=readme-ov-file",
+  "title": "Scorpious187's Character Combat Music",
+  "url": "https://github.com/nscarpinatodev/scorpious187s-character-combat-music",
   "version": "14.0.0"
 }
