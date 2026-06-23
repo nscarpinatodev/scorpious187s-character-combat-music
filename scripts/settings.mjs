@@ -1,4 +1,4 @@
-import { VGMusicConfig } from './app.mjs';
+import { CharacterCombatMusicConfig } from './app.mjs';
 import { CONST } from './config.mjs';
 
 /**
@@ -6,43 +6,43 @@ import { CONST } from './config.mjs';
  */
 export function registerSettings() {
   game.settings.register(CONST.moduleId, CONST.settings.silentCombatMusicMode, {
-    name: 'VGMusic.Settings.SilentCombatMusicMode.Name',
-    hint: 'VGMusic.Settings.SilentCombatMusicMode.Hint',
+    name: 'CCM.Settings.SilentCombatMusicMode.Name',
+    hint: 'CCM.Settings.SilentCombatMusicMode.Hint',
     scope: 'world',
     config: true,
     type: String,
     choices: {
-      [CONST.silentModes.highestPriority]: 'VGMusic.Settings.SilentCombatMusicMode.HighestPriority',
-      [CONST.silentModes.lastActor]: 'VGMusic.Settings.SilentCombatMusicMode.LastActor',
-      [CONST.silentModes.area]: 'VGMusic.Settings.SilentCombatMusicMode.Area',
-      [CONST.silentModes.generic]: 'VGMusic.Settings.SilentCombatMusicMode.Generic'
+      [CONST.silentModes.highestPriority]: 'CCM.Settings.SilentCombatMusicMode.HighestPriority',
+      [CONST.silentModes.lastActor]: 'CCM.Settings.SilentCombatMusicMode.LastActor',
+      [CONST.silentModes.area]: 'CCM.Settings.SilentCombatMusicMode.Area',
+      [CONST.silentModes.generic]: 'CCM.Settings.SilentCombatMusicMode.Generic'
     },
     default: CONST.silentModes.highestPriority,
     onChange: () => {
-      game.vgmusic?.musicController?.playCurrentTrack();
+      game.characterCombatMusic?.musicController?.playCurrentTrack();
     }
   });
 
   game.settings.registerMenu(CONST.moduleId, 'defaultMusicMenu', {
-    name: 'VGMusic.Settings.DefaultMusic.Name',
-    label: 'VGMusic.Settings.DefaultMusic.Label',
-    hint: 'VGMusic.Settings.DefaultMusic.Hint',
+    name: 'CCM.Settings.DefaultMusic.Name',
+    label: 'CCM.Settings.DefaultMusic.Label',
+    hint: 'CCM.Settings.DefaultMusic.Hint',
     icon: 'fas fa-music',
-    type: VGMusicConfig,
+    type: CharacterCombatMusicConfig,
     restricted: true
   });
 
   game.settings.register(CONST.moduleId, CONST.settings.defaultMusic, {
-    name: 'VGMusic.Settings.DefaultMusic.Name',
+    name: 'CCM.Settings.DefaultMusic.Name',
     scope: 'world',
     config: false,
     type: Object,
-    default: { documentName: 'DefaultMusic', data: { vgmusic: { music: {} } } }
+    default: { documentName: 'DefaultMusic', data: { [CONST.moduleId]: { music: {} } } }
   });
 
   game.settings.register(CONST.moduleId, CONST.settings.fadeDuration, {
-    name: 'VGMusic.Settings.FadeDuration.Name',
-    hint: 'VGMusic.Settings.FadeDuration.Hint',
+    name: 'CCM.Settings.FadeDuration.Name',
+    hint: 'CCM.Settings.FadeDuration.Hint',
     scope: 'world',
     config: true,
     type: Number,
@@ -51,24 +51,24 @@ export function registerSettings() {
   });
 
   game.settings.register(CONST.moduleId, CONST.settings.suppressArea, {
-    name: 'VGMusic.Settings.SuppressArea.Name',
+    name: 'CCM.Settings.SuppressArea.Name',
     scope: 'world',
     config: false,
     type: Boolean,
     default: false,
     onChange: () => {
-      game.vgmusic?.musicController?.playCurrentTrack();
+      game.characterCombatMusic?.musicController?.playCurrentTrack();
     }
   });
 
   game.settings.register(CONST.moduleId, CONST.settings.suppressCombat, {
-    name: 'VGMusic.Settings.SuppressCombat.Name',
+    name: 'CCM.Settings.SuppressCombat.Name',
     scope: 'world',
     config: false,
     type: Boolean,
     default: false,
     onChange: () => {
-      game.vgmusic?.musicController?.playCurrentTrack();
+      game.characterCombatMusic?.musicController?.playCurrentTrack();
     }
   });
 }
@@ -78,12 +78,12 @@ export function registerSettings() {
  */
 export function registerKeybindings() {
   game.keybindings.register(CONST.moduleId, 'toggleAreaMusic', {
-    name: 'VGMusic.Keybindings.ToggleAreaMusic',
+    name: 'CCM.Keybindings.ToggleAreaMusic',
     onDown: () => toggleAreaMusic()
   });
 
   game.keybindings.register(CONST.moduleId, 'toggleCombatMusic', {
-    name: 'VGMusic.Keybindings.ToggleCombatMusic',
+    name: 'CCM.Keybindings.ToggleCombatMusic',
     onDown: () => toggleCombatMusic()
   });
 }
@@ -94,7 +94,7 @@ export function registerKeybindings() {
 async function toggleAreaMusic() {
   const current = game.settings.get(CONST.moduleId, CONST.settings.suppressArea);
   await game.settings.set(CONST.moduleId, CONST.settings.suppressArea, !current);
-  ui.controls.initialize();
+  ui.controls.render();
 }
 
 /**
@@ -103,5 +103,5 @@ async function toggleAreaMusic() {
 async function toggleCombatMusic() {
   const current = game.settings.get(CONST.moduleId, CONST.settings.suppressCombat);
   await game.settings.set(CONST.moduleId, CONST.settings.suppressCombat, !current);
-  ui.controls.initialize();
+  ui.controls.render();
 }

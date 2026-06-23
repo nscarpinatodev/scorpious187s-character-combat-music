@@ -24,11 +24,18 @@ export class MusicController {
   }
 
   /**
-   * Get the current combat for the active scene
+   * Get the current combat for the active scene.
+   *
+   * Only returns a combat that belongs to the currently active scene, falling
+   * back to an active combat that is not tied to any scene (a global combat).
+   * A combat anchored to a different scene must NOT be returned here, otherwise
+   * switching scenes mid-battle would leak that combat's music (e.g. the default
+   * combat playlist) onto the newly activated, combat-free scene.
    * @returns {object|undefined} The current combat or undefined
    */
   get currentCombat() {
-    return game.combats.find((combat) => combat.scene === this.currentScene) || game.combats.find((combat) => combat.active);
+    const scene = this.currentScene;
+    return game.combats.find((combat) => combat.scene === scene) || game.combats.find((combat) => combat.active && !combat.scene);
   }
 
   /**

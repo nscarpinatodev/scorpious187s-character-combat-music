@@ -1,25 +1,8 @@
-I'm just forking this module for my own use. I'm leaving the original README info here, the original is Tyler's work and he deserves all the credit.
-----------------------------------------------------------------------------------------------------------------------------------------------------
+# Scorpious187's Character Combat Music
 
-# Commissioned Module Update
+A personal FoundryVTT module (Foundry v14) that adds context-aware music: it automatically switches between area and combat music based on game state, tracks playback position so music resumes where it left off, and crossfades between tracks.
 
-This module was updated as part of a commission. Any further updates beyond new core compatibility is subject to a monetary contribution. Issues for new features will be assigned a value based on complexity.
-
-# Video Game Music
-
-![GitHub release](https://img.shields.io/github/v/release/Sayshal/vgmusic?style=for-the-badge)
-![GitHub Downloads (specific asset, all releases)](https://img.shields.io/github/downloads/Sayshal/vgmusic/module.zip?style=for-the-badge&logo=foundryvirtualtabletop&logoColor=white&logoSize=auto&label=Downloads%20(Total)&color=ff144f)
-![GitHub Downloads (specific asset, latest release)](https://img.shields.io/github/downloads/Sayshal/vgmusic/latest/module.zip?sort=date&style=for-the-badge&logo=foundryvirtualtabletop&logoColor=white&logoSize=auto&label=Downloads%20(Latest)&color=ff144f)
-
-![Foundry Version](https://img.shields.io/endpoint?url=https%3A%2F%2Ffoundryshields.com%2Fversion%3Fstyle%3Dfor-the-badge%26url%3Dhttps%3A%2F%2Fgithub.com%2FSayshal%2Fvgmusic%2Freleases%2Flatest%2Fdownload%2Fmodule.json)
-
-## Supporting The Module
-
-[![Discord](https://dcbadge.limes.pink/api/server/PzzUwU9gdz)](https://discord.gg/PzzUwU9gdz)
-
-## Overview
-
-Video Game Music adds context-aware music to FoundryVTT. It automatically switches between area and combat music based on game state, tracks playback position so music resumes where it left off, and crossfades between tracks.
+> Personal build maintained by Scorpious187. Originally based on the **Video Game Music** module by Furyspark and Tyler ([Sayshal](https://github.com/Sayshal)).
 
 ## Features
 
@@ -33,10 +16,16 @@ Video Game Music adds context-aware music to FoundryVTT. It automatically switch
 
 ## Installation
 
-Install through Foundry's module browser, or paste the manifest URL:
+Paste the manifest URL into Foundry's module installer:
 
 ```
-https://github.com/Sayshal/vgmusic/releases/latest/download/module.json
+https://github.com/nscarpinatodev/scorpious187s-character-combat-music/releases/latest/download/module.json
+```
+
+To install a specific (pre-)release, use that release's tag-specific manifest URL, e.g.:
+
+```
+https://github.com/nscarpinatodev/scorpious187s-character-combat-music/releases/download/release-14.0.0/module.json
 ```
 
 ## Setup
@@ -57,5 +46,4 @@ https://github.com/Sayshal/vgmusic/releases/latest/download/module.json
 
 ## Support
 
-- [Discord](https://discord.gg/PzzUwU9gdz)
-- [GitHub Issues](https://github.com/Sayshal/vgmusic/issues)
+- [GitHub Issues](https://github.com/nscarpinatodev/scorpious187s-character-combat-music/issues)

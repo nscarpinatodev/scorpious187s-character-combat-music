@@ -3,7 +3,7 @@ description: 'Request a new feature [NOTE: Check the Roadmap before making a fea
 title: '[FEATURE] '
 labels: ['enhancement']
 assignees:
-  - Sayshal
+  - nscarpinatodev
 body:
   - type: markdown
     attributes:
