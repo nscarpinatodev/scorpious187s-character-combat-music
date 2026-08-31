@@ -12,6 +12,18 @@
       "url": "https://github.com/Sayshal"
     }
   ],
+  "relationships": {
+    "requires": [
+      {
+        "id": "scorpious187s-lib",
+        "type": "module",
+        "manifest": "https://github.com/nscarpinatodev/scorpious187s-lib/releases/latest/download/module.json",
+        "compatibility": {
+          "minimum": "0.3.0"
+        }
+      }
+    ]
+  },
   "bugs": "https://github.com/nscarpinatodev/scorpious187s-character-combat-music/issues",
   "changelog": "https://github.com/nscarpinatodev/scorpious187s-character-combat-music/releases",
   "compatibility": {
